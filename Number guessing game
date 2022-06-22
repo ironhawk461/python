@@ -1,0 +1,13 @@
+import random
+a = int(input("Enter the beginning number: "))
+b = int(input("Enter the ending number: "))
+c = random.randrange(a, b + 1)
+d = int(input("Now enter your guess: "))
+while b + 2 !=d:
+    if d != c:
+        print("incorrect")
+        d = int(input("try again: "))
+    else:
+        print("correct")
+        print(c)
+        break
