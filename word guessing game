@@ -1,0 +1,81 @@
+from cmath import e
+import random
+
+#Getting name and Difficulty
+name = str(input("What is your name? "))
+difficulty = str(input("What Difficulty would you like? (Easy = 20 turns, Medium = 10 turns, Hard = 5 turns): "))
+
+#setting turn amount based on difficulty
+if(difficulty.lower() == "easy"):
+    turns = 20
+elif(difficulty.lower() == "medium"):
+    turns = 10
+elif(difficulty.lower() == "hard"):
+    turns = 5
+
+#Chosing word from wordbank and then setting finalAnswer to blank
+wordBank = ['rainbow', 'computer', 'science', 'programming', 'python', 'mathematics', 'player', 'condition', 'reverse', 'water', 'board', 'geeks']
+randomWordFromBank = random.choice(wordBank)
+tempWord = randomWordFromBank
+finalAnswer = "".ljust(len(randomWordFromBank), "-")
+incorrectLetters = [""]
+
+#Show Difficulty and turns based on that difficulty
+print()
+print("Chosen difficulty: " + difficulty.lower() + ".")
+print("Number of Turns: " + str(turns) + ".")
+print()
+
+#Print dashes based on word length
+print("You word has " + str(len(tempWord)) + " letters.")
+for letter in tempWord:
+    print("_", end = " ")
+print()
+print()
+
+#Start of Guessing process
+while turns > 0:
+    #Getting guess
+    letterGuess = str(input("Guess a character: "))
+    #Boolean to determine whether turn counter should go down
+    letterExists = False
+    #If letter exists than edit the finalAnswer
+    for index, letter in enumerate(tempWord):
+        if(letterGuess == letter):
+            letterExists = True
+            listFormOfFinalAnswer = list(finalAnswer)
+            listFormOfFinalAnswer[index] = letterGuess
+            finalAnswer = "".join(listFormOfFinalAnswer)
+            
+    #If letter doesn't exists then decrement the turn counter and add the incorrect letter to the incorrect letter list. If it already exists on incorrect list then tell the player to guess again
+    if(letterExists == False):
+        turns -= 1
+        incorrectLetters.append(letterGuess)
+        print("Incorrect guess! You have " + str(turns) + " left.")
+    
+    #Print the current state of the word after the guess is made        
+    for letter in finalAnswer:
+        if(letter == "-"):
+            print("_", end = " ")
+        else:
+            print(letter, end = " ")
+    print()
+    print()
+    
+    #Print the incorrect letters so the player knows what not to guess
+    print("Incorrect Letters: ", end="")
+    for letter in incorrectLetters:
+        print(letter, end = " ")
+    print()
+    print()
+    
+    #If the correct answer is reached, it breaks out of the loop
+    if("-" not in finalAnswer):
+        turns = 0
+        incorrectLetters = []
+    
+#Win and Lose messages
+if(finalAnswer == randomWordFromBank):
+    print("Congratulations " + name + "! You won! You deserve a cookie!")
+else:
+    print("Sorry " + name + "! You ran out of turns! Get good and come back!")
