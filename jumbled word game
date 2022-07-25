@@ -1,0 +1,40 @@
+import random
+turns = 1
+one_point = 0
+two_point = 0
+print("This will be jumbled word game")
+print("The player that obtains 6 points first wins.")
+print("The game will being now.")
+while turns > 0:
+    words_list = ['rainbow', 'computer', 'science', 'programming', 'python', 'mathematics', 'player', 'condition', 'reverse', 'water', 'board', 'geeks']
+    randomword = random.choice(words_list)
+    word = list(randomword)
+    random.shuffle(word)
+    newshuffle = "".join(word)
+    print("Player 1 will start")
+    print("The word you have to put back together is",newshuffle)
+    a = str(input("What is your guess? "))
+    if one_point == 5 or two_point == 5:
+        turns = 0
+        break
+    if a == randomword:
+        print("You are correct!")
+        one_point += 1
+        print("Player 1 has " + str(one_point) + " points and player 2 has " + str(two_point) + " points.")
+        words_list.remove(randomword)
+        continue
+    else:
+        print("The word is incorrect")
+    print("Player 2 will start")
+    b = str(input("What is your guess? "))
+    if b == randomword:
+        print("You are correct!")
+        two_point += 1
+        print("Player 2 has " + str(two_point) + " points and player 1 has " + str(one_point) + " points.")
+        words_list.remove(randomword)
+    else:
+       print("The word is incorrect")
+if one_point == 5:
+    print("Congruations Player one, you are the winner")
+else:
+    print("Congraguations Player two, you are the winner")
